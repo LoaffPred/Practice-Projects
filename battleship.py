@@ -1,108 +1,157 @@
-"""                 Battleship v.1
-| X | A | B | C | D | E | F | G | H | I | J |
-| 1 |___|___|___|___|___|___|___|___|___|___|
-| 2 |___|___|___|___|___|___|___|___|___|___|
-| 3 |___|___|___|___|___|___|___|___|___|___|
-| 4 |___|___|___|___|___|___|___|___|___|___|
-| 5 |___|___|___|___|___|___|___|___|___|___|
-| 6 |___|___|___|___|___|___|___|___|___|___|
-| 7 |___|___|___|___|___|___|___|___|___|___|
-| 8 |___|___|___|___|___|___|___|___|___|___|
-| 9 |___|___|___|___|___|___|___|___|___|___|
-| 0 |___|___|___|___|___|___|___|___|___|___|
-"""
-"""
-board = (
-    [["A1"], ["B1"], ["C1"], ["D1"], ["E1"], ["F1"], ["G1"], ["H1"], ["I1"], ["J1"]],
-    [["A2"], ["B2"], ["C2"], ["D2"], ["E2"], ["F2"], ["G2"], ["H2"], ["I2"], ["J2"]],
-    [["A3"], ["B3"], ["C3"], ["D3"], ["E3"], ["F3"], ["G3"], ["H3"], ["I3"], ["J3"]],
-    [["A4"], ["B4"], ["C4"], ["D4"], ["E4"], ["F4"], ["G4"], ["H4"], ["I4"], ["J4"]],
-    [["A5"], ["B5"], ["C5"], ["D5"], ["E5"], ["F5"], ["G5"], ["H5"], ["I5"], ["J5"]],
-    [["A6"], ["B6"], ["C6"], ["D6"], ["E6"], ["F6"], ["G6"], ["H6"], ["I6"], ["J6"]],
-    [["A7"], ["B7"], ["C7"], ["D7"], ["E7"], ["F7"], ["G7"], ["H7"], ["I7"], ["J7"]],
-    [["A8"], ["B8"], ["C8"], ["D8"], ["E8"], ["F8"], ["G8"], ["H8"], ["I8"], ["J8"]],
-    [["A9"], ["B9"], ["C9"], ["D9"], ["E9"], ["F9"], ["G9"], ["H9"], ["I9"], ["J9"]],
-    [["A0"], ["B0"], ["C0"], ["D0"], ["E0"], ["F0"], ["G0"], ["H0"], ["I0"], ["J0"]],
-)
-"""
-board_layout = """                 Battleship v.2
-| X | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |
-| 0 |___|___|___|___|___|___|___|___|___|___|
-| 1 |___|___|___|___|___|___|___|___|___|___|
-| 2 |___|___|___|___|___|___|___|___|___|___|
-| 3 |___|___|___|___|___|___|___|___|___|___|
-| 4 |___|___|___|___|___|___|___|___|___|___|
-| 5 |___|___|___|___|___|___|___|___|___|___|
-| 6 |___|___|___|___|___|___|___|___|___|___|
-| 7 |___|___|___|___|___|___|___|___|___|___|
-| 8 |___|___|___|___|___|___|___|___|___|___|
-| 9 |___|___|___|___|___|___|___|___|___|___|
-"""
 
-boardv2 = (
-    [["00"], ["01"], ["02"], ["03"], ["04"], ["05"], ["06"], ["07"], ["08"], ["09"]],
-    [["10"], ["11"], ["12"], ["13"], ["14"], ["15"], ["16"], ["17"], ["18"], ["19"]],
-    [["20"], ["21"], ["22"], ["23"], ["24"], ["25"], ["26"], ["27"], ["28"], ["29"]],
-    [["30"], ["31"], ["32"], ["33"], ["34"], ["35"], ["36"], ["37"], ["38"], ["39"]],
-    [["40"], ["41"], ["42"], ["43"], ["44"], ["45"], ["46"], ["47"], ["48"], ["49"]],
-    [["50"], ["51"], ["52"], ["53"], ["54"], ["55"], ["56"], ["57"], ["58"], ["59"]],
-    [["60"], ["61"], ["62"], ["63"], ["64"], ["65"], ["66"], ["67"], ["68"], ["69"]],
-    [["70"], ["71"], ["72"], ["73"], ["74"], ["75"], ["76"], ["77"], ["78"], ["79"]],
-    [["80"], ["81"], ["82"], ["83"], ["84"], ["85"], ["86"], ["87"], ["88"], ["89"]],
-    [["90"], ["91"], ["92"], ["93"], ["94"], ["95"], ["96"], ["97"], ["98"], ["99"]],
-)
+main_board = [
+    ["| X |", " A |", " B |", " C |", " D |", " E |", " F |", " G |", " H |", " I |", " J |"],
+    ["| 1 |", "A1 |", "B1 |", "C1 |", "D1 |", "E1 |", "F1 |", "G1 |", "H1 |", "I1 |", "J1 |"],
+    ["| 2 |", "A2 |", "B2 |", "C2 |", "D2 |", "E2 |", "F2 |", "G2 |", "H2 |", "I2 |", "J2 |"],
+    ["| 3 |", "A3 |", "B3 |", "C3 |", "D3 |", "E3 |", "F3 |", "G3 |", "H3 |", "I3 |", "J3 |"],
+    ["| 4 |", "A4 |", "B4 |", "C4 |", "D4 |", "E4 |", "F4 |", "G4 |", "H4 |", "I4 |", "J4 |"],
+    ["| 5 |", "A5 |", "B5 |", "C5 |", "D5 |", "E5 |", "F5 |", "G5 |", "H5 |", "I5 |", "J5 |"],
+    ["| 6 |", "A6 |", "B6 |", "C6 |", "D6 |", "E6 |", "F6 |", "G6 |", "H6 |", "I6 |", "J6 |"],
+    ["| 7 |", "A7 |", "B7 |", "C7 |", "D7 |", "E7 |", "F7 |", "G7 |", "H7 |", "I7 |", "J7 |"],
+    ["| 8 |", "A8 |", "B8 |", "C8 |", "D8 |", "E8 |", "F8 |", "G8 |", "H8 |", "I8 |", "J8 |"],
+    ["| 9 |", "A9 |", "B9 |", "C9 |", "D9 |", "E9 |", "F9 |", "G9 |", "H9 |", "I9 |", "J9 |"],
+    ["|10 |", "A10|", "B10|", "C10|", "D10|", "E10|", "F10|", "G10|", "H10|", "I10|", "J10|",],
+]
 
-# user_input = "01"
-# ship_x, ship_y = user_input[0:1], user_input[1:2]
-# print(ship_x, ship_y)
-
-# boardv2[int(ship_x)][int(ship_y)] = "x"
-
-# for row in boardv2:
-#     if "x" in row:
-#         print("Found")
-        
-        
-# direction: +- index
-
-ships = {
-    "ship_2" : ["a","a"],
-    "ship_3a" : ["b", "b", "b"],
-    "ship_3b" : ["c", "c", "c"],
-    "ship_4" : ["e", "e", "e", "e"],
-    "ship_5" : ["f", "f", "f", "f", "f"]
-}
-
-def player_shot():
-    coordinates = input("Enter coordinates: ")
-    target_x, target_y = coordinates[0:1], coordinates[1:2]
-    if boardv2[target_x][target_y] == "x":
-        print("Hit.")
-        boardv2[target_x][target_y] = "z"
+blue_board = [
+    ["| X |", " A |", " B |", " C |", " D |", " E |", " F |", " G |", " H |", " I |", " J |"],
+    ["| 1 |", "A1 |", "B1 |", "C1 |", "D1 |", "E1 |", "F1 |", "G1 |", "H1 |", "I1 |", "J1 |"],
+    ["| 2 |", "A2 |", "B2 |", "C2 |", "D2 |", "E2 |", "F2 |", "G2 |", "H2 |", "I2 |", "J2 |"],
+    ["| 3 |", "A3 |", "B3 |", "C3 |", "D3 |", "E3 |", "F3 |", "G3 |", "H3 |", "I3 |", "J3 |"],
+    ["| 4 |", "A4 |", "B4 |", "C4 |", "D4 |", "E4 |", "F4 |", "G4 |", "H4 |", "I4 |", "J4 |"],
+    ["| 5 |", "A5 |", "B5 |", "C5 |", "D5 |", "E5 |", "F5 |", "G5 |", "H5 |", "I5 |", "J5 |"],
+    ["| 6 |", "A6 |", "B6 |", "C6 |", "D6 |", "E6 |", "F6 |", "G6 |", "H6 |", "I6 |", "J6 |"],
+    ["| 7 |", "A7 |", "B7 |", "C7 |", "D7 |", "E7 |", "F7 |", "G7 |", "H7 |", "I7 |", "J7 |"],
+    ["| 8 |", "A8 |", "B8 |", "C8 |", "D8 |", "E8 |", "F8 |", "G8 |", "H8 |", "I8 |", "J8 |"],
+    ["| 9 |", "A9 |", "B9 |", "C9 |", "D9 |", "E9 |", "F9 |", "G9 |", "H9 |", "I9 |", "J9 |"],
+    ["|10 |", "A10|", "B10|", "C10|", "D10|", "E10|", "F10|", "G10|", "H10|", "I10|", "J10|",],
+]
+red_board = [
+    ["| X |", " A |", " B |", " C |", " D |", " E |", " F |", " G |", " H |", " I |", " J |"],
+    ["| 1 |", "A1 |", "B1 |", "C1 |", "D1 |", "E1 |", "F1 |", "G1 |", "H1 |", "I1 |", "J1 |"],
+    ["| 2 |", "A2 |", "B2 |", "C2 |", "D2 |", "E2 |", "F2 |", "G2 |", "H2 |", "I2 |", "J2 |"],
+    ["| 3 |", "A3 |", "B3 |", "C3 |", "D3 |", "E3 |", "F3 |", "G3 |", "H3 |", "I3 |", "J3 |"],
+    ["| 4 |", "A4 |", "B4 |", "C4 |", "D4 |", "E4 |", "F4 |", "G4 |", "H4 |", "I4 |", "J4 |"],
+    ["| 5 |", "A5 |", "B5 |", "C5 |", "D5 |", "E5 |", "F5 |", "G5 |", "H5 |", "I5 |", "J5 |"],
+    ["| 6 |", "A6 |", "B6 |", "C6 |", "D6 |", "E6 |", "F6 |", "G6 |", "H6 |", "I6 |", "J6 |"],
+    ["| 7 |", "A7 |", "B7 |", "C7 |", "D7 |", "E7 |", "F7 |", "G7 |", "H7 |", "I7 |", "J7 |"],
+    ["| 8 |", "A8 |", "B8 |", "C8 |", "D8 |", "E8 |", "F8 |", "G8 |", "H8 |", "I8 |", "J8 |"],
+    ["| 9 |", "A9 |", "B9 |", "C9 |", "D9 |", "E9 |", "F9 |", "G9 |", "H9 |", "I9 |", "J9 |"],
+    ["|10 |", "A10|", "B10|", "C10|", "D10|", "E10|", "F10|", "G10|", "H10|", "I10|", "J10|",],
+]
+# might change guides to tuples to prevent modifying
 
 
-def ship_hit():
-    pass
+def coords_to_index(coords):
+    letters = ["X", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
+
+    x = coords[:1]
+    y = coords[1:]
+
+    for set in enumerate(letters):
+        if x in set:
+            x = set[0]
+        else:
+            pass
+
+    return int(y), x
+
+
+def check_length(length, coords):
+    if len(coords) == length:
+        return True
+    else:
+        return False
+
+
+# try to clean
+def deploy_ship(length, board):
+    while True:
+        try:
+            for row in board:
+                for cell in row:
+                    print(cell, end="")
+                print()
+            coords = (
+                input(f"Enter coordinates for ship of length {length}: ")
+                .upper()
+                .split(",")
+            )
+            if check_length(length, coords):
+                coords_index = []
+                for pair in coords:
+                    y, x = coords_to_index(pair)
+                    coords_index.append((y, x))
+                    board[y][x] = f" S |"
+                break
+            else:
+                print(f"Enter {length} coordinates only.")
+        except (ValueError, IndexError):
+            print("Invalid input")
+
+    # return coords_index
+
+
+class Ship:
+    def __init__(self, length, board):
+        self.length = length
+        self.lives = length
+        deploy_ship(length, board)
+
+
+class Player:
+    def __init__(self, board, color):
+        self.board = board
+        self.color = color
+        self.ships = {
+            "Ship 2": 2,
+            "Ship 3a": 3,
+            "Ship 3b": 3,
+            "Ship 4": 4,
+            "Ship 5": 5,
+        }
+
+    # change to static method or put outside
+    def print_board(self):
+        print(f"{self.color}'s board")
+        for row in self.board:
+            for cell in row:
+                print(cell, end="")
+            print()
+
+    def init_ships(self):
+        # [optional] check if coords are adjacent
+        for ship in self.ships:
+            self.ships[ship] = Ship(self.ships[ship], self.board)
+
+
+def blue_shoot():
+    print("Blue player to shoot")
+    coords = input("Enter coordinates: ")
+    y, x = coords_to_index(coords)
+    if "S" in red_board[y][x]:
+        print("HIT!")
+
+
+
 
 def main():
-    print(board_layout)
+    player_blue = Player(blue_board, "Blue")
+    print("~~~~~~~~~~~~~~~Blue player setup~~~~~~~~~~~~~~~")
+    player_blue.init_ships()
+    print("\n" * 100)
+
+    # player_red = Player(red_board, "Red")
+    # print("~~~~~~~~~~~~~~~Red player setup~~~~~~~~~~~~~~~")
+    # player_red.init_ships()
+    # print("\n" * 100)
+
+    # blue player start
+    print("~~~~~~~~~~~~~~~Battle phase~~~~~~~~~~~~~~~")
 
 
 
-# def new_game():
-#     blue_board = list(boardv2)
-#     return blue_board
 
 
-def blue_setup():
-    print("Enter the starting coordinates for your ships.")
-    for ship in ships:
-        print(f"For ship length {len(ship)}", end="")
-        ship_coords = input(":")
-        ships[ship][0] = ship_coords
-        
-def red_setup():
-    pass
 
-
-# blue_setup()
+main()
