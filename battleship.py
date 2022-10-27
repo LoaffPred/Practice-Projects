@@ -1,4 +1,3 @@
-
 main_board = [
     ["| X |", " A |", " B |", " C |", " D |", " E |", " F |", " G |", " H |", " I |", " J |"],
     ["| 1 |", "A1 |", "B1 |", "C1 |", "D1 |", "E1 |", "F1 |", "G1 |", "H1 |", "I1 |", "J1 |"],
@@ -42,19 +41,53 @@ red_board = [
 # might change guides to tuples to prevent modifying
 
 
-def coords_to_index(coords):
-    letters = ["X", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
+# try to clean
+# def deploy_ship(length, board):
+#     while True:
+#         try:
+#             for row in board:
+#                 for cell in row:
+#                     print(cell, end="")
+#                 print()
+#             coords = (
+#                 input(f"Enter coordinates for ship of length {length}: ")
+#                 .upper()
+#                 .split(",")
+#             )
+#             if check_length(length, coords):
+                
 
-    x = coords[:1]
-    y = coords[1:]
 
-    for set in enumerate(letters):
-        if x in set:
-            x = set[0]
-        else:
-            pass
+#                 break
+#             else:
+#                 print(f"Enter {length} coordinates only.")
+#         except (ValueError, IndexError):
+#             print("Invalid input")
 
-    return int(y), x
+    # return coords_index
+
+
+def init_ship(self, length, board):
+    while True:
+        try:
+            Player.print_board(board)
+            coords = (input(f"Enter coordinates for ship of length {self.length}: ").upper().split(","))
+            if Ship.check_length(length, coords):
+                Ship.deploy_ship(coords, board)
+                break
+            else:
+                print(f"Enter {length} coordinates only.")
+        except (ValueError, IndexError):
+            print("Invalid input")
+    self.coords = coords
+
+def deploy_ship(coords, board):
+    coords_index = []
+    for pair in coords:
+        y, x = Ship.coords_to_index(pair)
+        coords_index.append((y, x))
+        board[y][x] = f" S |"
+
 
 
 def check_length(length, coords):
@@ -64,91 +97,81 @@ def check_length(length, coords):
         return False
 
 
-# try to clean
-def deploy_ship(length, board):
-    while True:
-        try:
-            for row in board:
-                for cell in row:
-                    print(cell, end="")
-                print()
-            coords = (
-                input(f"Enter coordinates for ship of length {length}: ")
-                .upper()
-                .split(",")
-            )
-            if check_length(length, coords):
-                coords_index = []
-                for pair in coords:
-                    y, x = coords_to_index(pair)
-                    coords_index.append((y, x))
-                    board[y][x] = f" S |"
-                break
-            else:
-                print(f"Enter {length} coordinates only.")
-        except (ValueError, IndexError):
-            print("Invalid input")
-
-    # return coords_index
-
-
-class Ship:
-    def __init__(self, length, board):
-        self.length = length
-        self.lives = length
-        deploy_ship(length, board)
+def coords_to_index(coords):
+    letters = ["X", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
+    x = coords[:1]
+    y = coords[1:]
+    for set in enumerate(letters):
+        if x in set:
+            x = set[0]
+        else:
+            pass
+    return int(y), x
+        
 
 
 class Player:
     def __init__(self, board, color):
         self.board = board
         self.color = color
-        self.ships = {
-            "Ship 2": 2,
-            "Ship 3a": 3,
-            "Ship 3b": 3,
-            "Ship 4": 4,
-            "Ship 5": 5,
-        }
+        self.ships = {}
+            # self.ship_2 : Ship(self.color, 2, self.board),
+            # self.ship_3a : Ship(self.color, 3, self.board),
+            # self.ship_3b : Ship(self.color, 3, self.board),
+            # self.ship_4 : Ship(self.color, 4, self.board),
+            # self.ship_5 : Ship(self.color, 5, self.board)
+        
 
-    # change to static method or put outside
-    def print_board(self):
-        print(f"{self.color}'s board")
-        for row in self.board:
+    @staticmethod
+    def print_board(board):
+        for row in board:
             for cell in row:
                 print(cell, end="")
             print()
-
-    def init_ships(self):
-        # [optional] check if coords are adjacent
-        for ship in self.ships:
-            self.ships[ship] = Ship(self.ships[ship], self.board)
+        print()
 
 
-def blue_shoot():
-    print("Blue player to shoot")
-    coords = input("Enter coordinates: ")
-    y, x = coords_to_index(coords)
-    if "S" in red_board[y][x]:
-        print("HIT!")
+# two main boards
+# def player_shoot(target):
+#     Player.print_board(main_board)
+#     cell = input("Enter target cell coordinates: ")
+#     y, x = Ship.coords_to_index(cell)
+#     if "S" in target.board[y][x]:
+#         print("HIT!")
+#     for ships_, ship in target.ships.items():
+#         if ship.coords == cell:
+#             ship.lives -= 1
 
 
 
 
 def main():
-    player_blue = Player(blue_board, "Blue")
     print("~~~~~~~~~~~~~~~Blue player setup~~~~~~~~~~~~~~~")
-    player_blue.init_ships()
+    player_blue = Player(blue_board, "Blue")
+    b_ship_2 = {
+        "lives" : 0,
+        "coords" : []
+    }
+
+
     print("\n" * 100)
 
-    # player_red = Player(red_board, "Red")
-    # print("~~~~~~~~~~~~~~~Red player setup~~~~~~~~~~~~~~~")
-    # player_red.init_ships()
-    # print("\n" * 100)
 
-    # blue player start
+
+
+
+    print("~~~~~~~~~~~~~~~Red player setup~~~~~~~~~~~~~~~")
+    player_red = Player(red_board, "Red")
+    print("\n" * 100)
+
+
+
+
+
+
     print("~~~~~~~~~~~~~~~Battle phase~~~~~~~~~~~~~~~")
-
+    # player_shoot(player_red)
+    # print(player_red.ships)
 
 
 
