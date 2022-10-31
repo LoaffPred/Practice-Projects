@@ -1,3 +1,4 @@
+# fmt: off
 bview_board = [
     ["| X |", " A |", " B |", " C |", " D |", " E |", " F |", " G |", " H |", " I |", " J |"],
     ["| 1 |", "A1 |", "B1 |", "C1 |", "D1 |", "E1 |", "F1 |", "G1 |", "H1 |", "I1 |", "J1 |"],
@@ -52,45 +53,52 @@ red_board = [
     ["| 9 |", "A9 |", "B9 |", "C9 |", "D9 |", "E9 |", "F9 |", "G9 |", "H9 |", "I9 |", "J9 |"],
     ["|10 |", "A10|", "B10|", "C10|", "D10|", "E10|", "F10|", "G10|", "H10|", "I10|", "J10|"],
 ]
+# fmt: on
 
 
 def print_board(board):
-        for row in board:
-            for cell in row:
-                print(cell, end="")
-            print()
+    for row in board:
+        for cell in row:
+            print(cell, end="")
         print()
-        
+    print()
+
+
 class Player:
     def __init__(self, color, board):
         self.board = board
         self.color = color
         self.ships = {}
-        
+
     def get_lives(self):
         return len(self.ships)
-    
+
     def get_board(self):
         return self.board
-            
+
     def add_ship(self, name, atts):
         self.ships[name] = atts
-        
+
+
 # TODO #6
 class Ship:
     def __init__(self, name, length, player):
         self.name = name
         self.length = length
         self.atts = {
-            "lives" : self.length,
-            "coords" : Ship.init_ship(self.length, player.get_board())
+            "lives": self.length,
+            "coords": Ship.init_ship(self.length, player.get_board()),
         }
         player.add_ship(name, self.atts)
-        
+
     def init_ship(length, board):
         while True:
             try:
-                coords = (input(f"Enter coordinates for ship of length {length}: ").upper().split(","))
+                coords = (
+                    input(f"Enter coordinates for ship of length {length}: ")
+                    .upper()
+                    .split(",")
+                )
                 if Ship.check_length(length, coords):
                     Ship.deploy_ship(coords, board)
                     print_board(board)
@@ -100,21 +108,21 @@ class Ship:
             except (ValueError, IndexError):
                 print("Invalid input")
         return coords
-    
+
     def deploy_ship(coords, board):
         coords_index = []
         for pair in coords:
             y, x = Ship.coords_to_index(pair)
             coords_index.append((y, x))
             board[y][x] = f" S |"
-    
+
     @staticmethod
     def check_length(length, coords):
         if len(coords) == length:
             return True
         else:
             return False
-    
+
     @staticmethod
     def coords_to_index(coords):
         letters = ["X", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
@@ -125,7 +133,7 @@ class Ship:
                 x = set[0]
                 break
         return int(y), x
-    
+
 
 def player_shoot(target, shooter_board):
     cell = input("Enter target cell coordinates: ").upper()
@@ -136,21 +144,22 @@ def player_shoot(target, shooter_board):
         action = "hit"
         hit_or_miss(shooter_board, y, x, action)
         for ship, atts in target.ships.items():
-            if cell in atts["coords"]: # might remove
+            if cell in atts["coords"]:  # might remove
                 # atts["coords"].remove(cell)
                 atts["lives"] -= 1
     else:
         hit_or_miss(shooter_board, y, x, action)
         print("MISS!")
     print_board(shooter_board)
-                
-                
+
+
 def hit_or_miss(board, y, x, action):
     if action == "hit":
         board[y][x] = " H |"
     if action == "miss":
         board[y][x] = " X |"
-        
+
+
 def check_lives(target, no_ships):
     lives = no_ships
     # print("Lives:", lives)
@@ -164,10 +173,9 @@ def check_lives(target, no_ships):
     if lives == 0:
         print("Player", target.color, "has been defeated.")
         return True
-    
-            
-# while loop ; func checking both players' lives
 
+
+# while loop ; func checking both players' lives
 
 
 def main():
@@ -181,8 +189,7 @@ def main():
     b_ship_5 = Ship("ship_5", 5, player_blue)
     input("Press enter to confirm.")
     print("\n" * 100)
-    
-    
+
     print("~~~~~~~~~~~~~~~Red player setup~~~~~~~~~~~~~~~")
     player_red = Player("Red", red_board)
     print_board(red_board)
@@ -193,10 +200,9 @@ def main():
     r_ship_5 = Ship("ship_5", 5, player_red)
     input("Press enter to confirm.")
     print("\n" * 100)
-    
-    
+
     print("~~~~~~~~~~~~~~~Battle phase~~~~~~~~~~~~~~~")
-    
+
     print("Red Player start")
     while True:
         print("~~~~~~~~~~~~~~~Red player's turn~~~~~~~~~~~~~~~")
@@ -211,6 +217,5 @@ def main():
         if check_lives(player_red, player_red.get_lives()):
             break
 
-    
 
 main()
