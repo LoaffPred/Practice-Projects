@@ -1,14 +1,4 @@
 # fmt: off
-final_board = [
-    ["_", "_", "_", "_"],
-    ["|", " ", " ", "|"],
-    ["|", " ", " ", "0"],
-    ["|", " ", "/", "|", "\\"],
-    ["|", " ", "/", " ", "\\"],
-    ["|"],
-    ["=", "=", "=", "=", "=", "=", "=",],
-]
-
 new_board = [
     ["_", "_", "_", "_"],
     ["|", " ", " ", "|"],
@@ -43,9 +33,10 @@ def new_words():  # returns a list
     input_words = input("Enter word/s to guess: ").upper().split()
     for word in input_words:
         for letter in word:
-            new_letters.append(letter)  # no spaces
+            new_letters.append(letter)
             blank_letters.append("_")
-        blank_letters.append(" ")  # adds spaces between each word
+        new_letters.append(" ")
+        blank_letters.append(" ")
     return new_letters, blank_letters
 
 
@@ -75,16 +66,20 @@ def main():
     new_letters, blank_letters = new_words()
     while True:
         print_board(new_board)
-
         print_letters(blank_letters)
 
         guess = get_guess()
         if guess in new_letters:
             if guess in user_guesses:
-                pass
+                print("You tried that already.")
+                continue
             else:
-                guess_index = new_letters.index(guess)
-                blank_letters[guess_index] = guess
+                new_letters_copy = new_letters.copy()
+                for letter in new_letters_copy:
+                    if letter == guess:
+                        guess_index = new_letters_copy.index(letter)
+                        blank_letters[guess_index] = guess
+                        new_letters_copy[guess_index] = "_"
                 user_guesses.append(guess)
                 if blank_letters == new_letters:
                     print("YOU WIN!")
@@ -116,16 +111,10 @@ def main():
         print("Used letters: ")
         print_letters(user_guesses)
 
-        print(blank_letters)
-        print(new_letters)
-
 
 main()
 
-
-# disallow repeating letters
-# win message
-# guess word
-
-
-# awdadadadada
+# todo:
+# allow guessing of word/words
+# try except for guessing of letters
+# clean up main
