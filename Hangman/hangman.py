@@ -64,9 +64,13 @@ def main():
     mistake_counter = 0
     user_guesses = []
     new_letters, blank_letters = new_words()
+    print("\n" * 100)
     while True:
         print_board(new_board)
         print_letters(blank_letters)
+        if blank_letters == new_letters:
+            print("YOU WIN!")
+            break
 
         guess = get_guess()
         if guess in new_letters:
@@ -81,9 +85,6 @@ def main():
                         blank_letters[guess_index] = guess
                         new_letters_copy[guess_index] = "_"
                 user_guesses.append(guess)
-                if blank_letters == new_letters:
-                    print("YOU WIN!")
-                    break
         elif guess in user_guesses:
             print("Try again.")
             continue
