@@ -1,3 +1,3 @@
 # Practice-Projects
 
-These are some projects for me to work on during my free time.
+These are some projects that I work on during my free time.
