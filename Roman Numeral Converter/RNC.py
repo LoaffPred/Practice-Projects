@@ -1,6 +1,4 @@
-# import matplotlib.pyplot as plt
-
-test_num = "8888"
+input_num = input("Enter a number to convert [0-10,000]: ")
 
 
 class LetterEquivalent:
@@ -61,4 +59,4 @@ def convert(num):
     return num_str
 
 
-print(convert(test_num))
+print(convert(input_num))
