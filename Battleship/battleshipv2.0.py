@@ -15,5 +15,12 @@ def write_board(data, board_name):
 def print_board(board):
     for row in board:
         for col in row:
-            print(col, end="")
+            print(col, end="|")
         print()
+
+
+def main():
+    print_board(get_board("red_board"))
+
+
+main()
