@@ -21,14 +21,27 @@ def print_board(board):
 
 def coords_to_index(coords):
     letters = ["X", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
-    x = coords[:1]
-    y = coords[1:]
+    col = coords[:1]
+    row = coords[1:]
     for pair in enumerate(letters):
-        if x == pair[1]:
-            x = pair[0]
-            return int(y), x
+        if col == pair[1]:
+            col = pair[0]
+            return int(row), col
     else:
-        raise
+        raise Exception("Coordinates Out of Bounds")
+
+
+def plot_on_board(data, coords, board):
+    row, col = coords
+    board[row][col] = data
+
+
+def validate_coords(input_coords, board):
+    row, col = coords_to_index(input_coords)
+    if board[row][col] == " S ":
+        return False
+    else:
+        return row, col
 
 
 class Ship:
@@ -38,24 +51,30 @@ class Ship:
         self.lives = self.length
         self.coords = []
 
-    def deploy_ship(self):
+    def deploy_ship(self, board):
         while True:
-            try:
-                for _ in range(self.length):
-                    input_coords = input(
-                        f"Enter coordinates for ship length {self.length}: "
-                    )
-                    valid_coords = coords_to_index(input_coords)
+            # try:
+            for _ in range(self.length):
+                input_coords = input(
+                    f"Enter coordinates for ship length {self.length}: "
+                )
+                valid_coords = validate_coords(input_coords, board)
+                if valid_coords:
                     self.coords.append((valid_coords))
-                return True
-            except:
-                print("!!! Invalid Input !!!")
+                    plot_on_board(valid_coords, " S ", board)
+                else:
+                    print("TEST")
+                    raise Exception("!!! Invalid Coordinates !!!")
+            return True
+        # except Exception:
+        #     print("!!! Invalid Input !!!")
 
 
 def main():
-    print_board(get_board("red_board"))
+    red_board = get_board("red_board")
+    print_board(red_board)
     ship2 = Ship(2)
-    ship2.deploy_ship()
+    ship2.deploy_ship(red_board)
     print(ship2.coords)
 
 
