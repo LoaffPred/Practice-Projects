@@ -32,16 +32,21 @@ def coords_to_index(coords):
 
 
 def plot_on_board(data, coords, board):
-    row, col = coords
-    board[row][col] = data
+    board[coords[0]][coords[1]] = data
 
 
 def validate_coords(input_coords, board):
-    row, col = coords_to_index(input_coords)
-    if board[row][col] == " S ":
+    try:
+        row, col = coords_to_index(input_coords)
+        if board[row][col] == " S ":
+            print("!!! Space already occupied !!!")
+            return False
+        else:
+            print("$$$ Valid coordinates $$$")
+            return row, col
+    except Exception as e:
+        print(e)
         return False
-    else:
-        return row, col
 
 
 class Ship:
@@ -52,22 +57,16 @@ class Ship:
         self.coords = []
 
     def deploy_ship(self, board):
-        while True:
-            # try:
-            for _ in range(self.length):
+        for _ in range(self.length):
+            while True:
                 input_coords = input(
                     f"Enter coordinates for ship length {self.length}: "
                 )
                 valid_coords = validate_coords(input_coords, board)
                 if valid_coords:
                     self.coords.append((valid_coords))
-                    plot_on_board(valid_coords, " S ", board)
-                else:
-                    print("TEST")
-                    raise Exception("!!! Invalid Coordinates !!!")
-            return True
-        # except Exception:
-        #     print("!!! Invalid Input !!!")
+                    plot_on_board(" S ", valid_coords, board)
+                    break
 
 
 def main():
